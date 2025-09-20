@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MHD MIDLAJ</title>
+  <meta name="description" content="Portfolio of MHD MIDLAJ – Poster Designer & Creative Coder" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Particle canvas + cursor ring -->
+<canvas id="cursorCanvas" aria-hidden="true"></canvas>
+<div id="pointerRing" class="pointer-ring"></div>
+
+<div class="wrap" role="main">
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <img src="logo.png" alt="Logo" class="logo">
+      <div>
+        <div style="font-weight:500">MHD MIDLAJ</div>
+        <div class="muted">POSTER DESIGNER</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero card reveal" id="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Hello — I build AI videos</div>
+          <h1>I'm <span class="highlight">MHD MIDLAJ</span> —
+            <span class="typewriter typewriter-js"></span>
+          </h1>
+          <p class="lead">
+            I design and code expressive interfaces with performant animations and accessible design.
+          </p>
+          <div class="actions">
+            <button class="btn primary" id="hireBtn">Hire me</button>
+            <button class="btn" id="workBtn">See Work</button>
+          </div>
+        </div>
+        <aside class="avatar-box">
+          <div class="avatar">
+            <img src="me.jpg" alt="MHD MIDLAJ">
+          </div>
+          <div>
+            <div class="status">Available for hire</div>
+            <div class="muted small">Open to freelance & full-time roles</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="card reveal">
+      <h3>About</h3>
+      <p class="muted">I focus on tiny details that make interfaces feel alive — motion that guides, not distracts.</p>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="card reveal">
+      <h3>Skills</h3>
+      <div class="chips">
+        <div class="chip">Photoshop</div>
+        <div class="chip">Illustrator</div>
+        <div class="chip">After Effects</div>
+        <div class="chip">Figma</div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="card reveal">
+      <h3>Projects</h3>
+      <div class="projects">
+        <div class="proj"><strong>Micro Interactions Kit</strong><p class="muted">Motion primitives built with Web Animations API.</p></div>
+        <div class="proj"><strong>Animated Docs</strong><p class="muted">Docs with live animation playground.</p></div>
+        <div class="proj"><strong>Typing Car</strong><p class="muted">Typing game with motion feedback.</p></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="card reveal">
+      <h3>Contact</h3>
+      <p class="muted">Email: <a href="mailto:midlajmk012@gmail.com" id="emailLink">midlajmk012@gmail.com</a></p>
+      <div class="actions">
+        <button class="btn" id="copyEmail">Copy Email</button>
+        <button class="btn primary" id="downloadCv">Download CV</button>
+      </div>
+    </section>
+
+    <footer>Made with ♥ — move the mouse to explore effects.</footer>
+  </main>
+
+  <!-- Sidebar -->
+  <aside class="right reveal">
+    <div class="card">
+      <div class="meta">
+        <div class="name">MHD MIDLAJ</div>
+        <div class="role muted">Poster Designer • Creative Coder</div>
+      </div>
+      <div class="sidebar-section"><strong>Contact</strong><div class="muted">midlajmk012@gmail.com</div></div>
+      <div class="sidebar-section"><strong>Tech stack</strong><div class="muted">React • TS • Web Animations • SVG • Canvas</div></div>
+      <div class="actions">
+        <button class="btn" id="themeToggle">Toggle Theme</button>
+        <button class="btn" id="focusProjects">Focus Projects</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

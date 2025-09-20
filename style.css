@@ -1,0 +1,97 @@
+:root {
+  --bg-1: #0f1724;
+  --bg-2: #1c2533;
+  --card: rgba(255,255,255,0.05);
+  --muted: #9ca3af;
+  --accent: #3b82f6;
+  --radius: 12px;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg-1);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Layout */
+.wrap {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  padding: 20px;
+}
+header, main, aside, footer { margin-bottom: 20px; }
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand { display: flex; align-items: center; gap: 8px; }
+.logo { width: 40px; height: 40px; }
+nav a { margin-left: 15px; color: var(--muted); text-decoration: none; }
+nav a:hover { color: var(--accent); }
+
+/* Hero */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+}
+.highlight { color: var(--accent); font-weight: 900; }
+.avatar-box { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.avatar img { width: 120px; border-radius: 10px; }
+
+/* Cards */
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  background: var(--bg-2);
+  color: white;
+}
+.btn.primary { background: var(--accent); }
+.btn:hover { opacity: 0.9; }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  padding: 6px 12px;
+  background: var(--bg-2);
+  border-radius: 20px;
+}
+
+/* Projects */
+.projects { display: grid; gap: 12px; }
+.proj { padding: 10px; background: var(--bg-2); border-radius: var(--radius); }
+
+/* Footer */
+footer { text-align: center; margin-top: 20px; color: var(--muted); }
+
+/* Sidebar */
+.right { }
+.sidebar-section { margin-top: 12px; }
+.meta .name { font-weight: bold; }
+.meta .role { font-size: 13px; }
+
+/* Cursor */
+.pointer-ring {
+  position: fixed;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
