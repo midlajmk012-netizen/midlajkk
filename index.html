@@ -1,28 +1,126 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MHD MIDLAJ</title>
-  <meta name="description" content="Portfolio of MHD MIDLAJ – Poster Designer & Creative Coder" />
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MHD MIDLAJ </title>
+<meta name="description" content="Advanced interactive self-introduction with animations and mouse-driven color" />
+<style>
+  :root{
+    --bg-1: #0f1724;
+    --bg-2: #071022;
+    --card: rgba(255,255,255,0.03);
+    --glass: rgba(255,255,255,0.04);
+    --muted: #9aa6b2;
+    --accent-h: 200; /* will be updated dynamically (hue) */
+    --accent: hsl(var(--accent-h) 90% 58%);
+    --accent-2: hsl(calc(var(--accent-h) + 35) 85% 56%);
+    --radius: 14px;
+    --maxw: 1200px;
+    --ease-smooth: cubic-bezier(.2,.9,.25,1);
+  }
+  /* Basic reset */
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color: #e6f0f6;background: linear-gradient(180deg,var(--bg-1),var(--bg-2));-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:36px auto;padding:20px;display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start}
+  @media (max-width:1000px){ .wrap{grid-template-columns:1fr;padding:16px} .right{order:2} }
+
+  /* Header */
+  header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px}
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:white;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 30px rgba(0,0,0,0.5)}
+  nav{display:flex;gap:10px}
+  nav a{padding:8px 12px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:600;transition:all .22s var(--ease-smooth)}
+  nav a:hover{color:var(--accent);transform:translateY(-3px)}
+
+  /* Hero card */
+  .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);padding:26px;position:relative;overflow:hidden;box-shadow:0 12px 48px rgba(2,6,12,0.6)}
+  .hero-grid{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:center}
+  @media (max-width:980px){ .hero-grid{grid-template-columns:1fr} .hero{padding:18px} }
+  .eyebrow{color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:1px;font-size:12px}
+  h1{margin:6px 0 8px;font-size:32px;line-height:1.02}
+  .typewriter{color:var(--accent);font-weight:800}
+  p.lead{color:#cfe6f7;margin:0 0 12px;max-width:55ch}
+
+  /* action buttons */
+  .actions{display:flex;gap:10px}
+  .btn{padding:10px 14px;border-radius:12px;border:none;cursor:pointer;font-weight:700;background:transparent;color:#eaf6ff;box-shadow:none;transition:transform .18s var(--ease-smooth), box-shadow .18s}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021226}
+  .btn:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,0.45)}
+
+  /* right profile */
+  .right{position:sticky;top:28px;padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(6px);box-shadow:0 12px 30px rgba(0,0,0,0.55)}
+  .avatar{height:220px;border-radius:10px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(180deg,#021024, #05223a)}
+  .meta{margin-top:12px}
+  .meta .name{font-weight:800;font-size:18px}
+  .meta .role{color:var(--muted);font-size:13px;margin-top:4px}
+
+  /* sections */
+  section{margin-top:18px;background:transparent}
+  .card{padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.015), rgba(255,255,255,0.01));box-shadow:0 10px 30px rgba(0,0,0,0.45)}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  /* projects */
+  .projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .proj{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));transition:transform .35s var(--ease-smooth), box-shadow .35s;transform-origin:center;will-change:transform;cursor:pointer}
+  .proj:hover{transform:translateY(-14px) rotateX(6deg);box-shadow:0 30px 50px rgba(2,6,12,0.6)}
+
+  /* skill chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{padding:8px 10px;border-radius:999px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));font-weight:700;color:#e8f8ff;border:1px solid rgba(255,255,255,0.02)}
+
+  /* small helpers */
+  .muted{color:var(--muted)}
+  footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+
+  /* entrance animations */
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease-smooth), transform .6s var(--ease-smooth)}
+  .reveal.visible{opacity:1;transform:none}
+
+  /* focus outlines */
+  .proj:focus{outline:3px solid color-mix(in srgb, var(--accent) 30%, transparent);transform:translateY(-8px)}
+
+  /* cursor & particle canvas */
+  #cursorCanvas{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:400}
+  /* fancy gradient ring following pointer */
+  .pointer-ring{position:fixed;pointer-events:none;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:999px;z-index:402;mix-blend-mode:screen;filter:blur(0.6px);opacity:0.95;transition:width .12s, height .12s}
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none!important;animation:none!important}
+    .hero, .proj, .btn{transition:none!important}
+  }
+
+</style>
 </head>
 <body>
 
-<!-- Particle canvas + cursor ring -->
+<!-- canvas for particles -->
 <canvas id="cursorCanvas" aria-hidden="true"></canvas>
-<div id="pointerRing" class="pointer-ring"></div>
+<div id="pointerRing" class="pointer-ring" style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0.15) 30%, transparent 60%);"></div>
 
 <div class="wrap" role="main">
-  <!-- Header -->
-  <header>
+  <header style="grid-column:1 / -1;">
     <div class="brand">
-      <img src="logo.png" alt="Logo" class="logo">
+
+      <div class="brand">
+  <img src="https://mail.google.com/mail/u/0?ui=2&ik=b5cc96f930&attid=0.1&permmsgid=msg-f:1842066049272547344&th=1990554fe7b28810&view=fimg&fur=ip&permmsgid=msg-f:1842066049272547344&sz=s0-l75-ft&attbid=ANGjdJ9SHEL04133R0cTUMk4vqJiNhPwfqM9CCJxWM5GAHBC-NdDr9_O2-_THdo73aJhFDosa9YsWCvgl1-EEM1YZC0FwlorphGFVF29kaui8y1oWlWi4YUpHqsOR-A&disp=emb&realattid=ii_mf14b5ve0&zw" alt="Logo" class="https://mail.google.com/mail/u/0?ui=2&ik=b5cc96f930&attid=0.1&permmsgid=msg-f:1842066049272547344&th=1990554fe7b28810&view=fimg&fur=ip&permmsgid=msg-f:1842066049272547344&sz=s0-l75-ft&attbid=ANGjdJ9SHEL04133R0cTUMk4vqJiNhPwfqM9CCJxWM5GAHBC-NdDr9_O2-_THdo73aJhFDosa9YsWCvgl1-EEM1YZC0FwlorphGFVF29kaui8y1oWlWi4YUpHqsOR-A&disp=emb&realattid=ii_mf14b5ve0&zw">
+  <div>
+    <div style="font-weight:800"></div>
+    <div class="muted" style="font-size:13px"></div>
+  </div>
+</div>
+
+
+      
+      
       <div>
         <div style="font-weight:500">MHD MIDLAJ</div>
-        <div class="muted">POSTER DESIGNER</div>
+        <div class="muted" style="font-size:13px">POSTER DESIGNER </div>
       </div>
     </div>
+
     <nav>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
@@ -31,86 +129,121 @@
     </nav>
   </header>
 
-  <!-- Main -->
-  <main>
-    <!-- Hero Section -->
+  <main style="grid-column:1 / 2">
     <section class="hero card reveal" id="hero">
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">Hello — I build AI videos</div>
-          <h1>I'm <span class="highlight">MHD MIDLAJ</span> —
-            <span class="typewriter typewriter-js"></span>
-          </h1>
-          <p class="lead">
-            I design and code expressive interfaces with performant animations and accessible design.
-          </p>
+          <div class="eyebrow">Hello — I build ai videos</div>
+          <h1>I'm <span style="color:var(--accent);font-weight:900">MHD MIDLAJ</span> — <span class="typewriter typewriter-js"></span></h1>
+          <p class="lead">I design and code expressive interfaces with performant animations and accessible design. I specialize in motion systems, SVG & Canvas interaction, and front-end engineering.</p>
+
           <div class="actions">
             <button class="btn primary" id="hireBtn">Hire me</button>
             <button class="btn" id="workBtn">See Work</button>
           </div>
+
+          <div style="margin-top:16px" class="muted">Tip: Move your mouse to change the accent color and see the cursor particles react.</div>
         </div>
-        <aside class="avatar-box">
-          <div class="avatar">
-            <img src="me.jpg" alt="MHD MIDLAJ">
+
+        <aside style="display:flex;flex-direction:column;gap:12px;align-items:center">
+          <div class="avatar" aria-hidden="true">
+            <!-- simple SVG avatar - replace with your photo if desired -->
+            <svg viewBox="0 0 200 200" width="160" height="160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="gA" x1="0" x2="1"><stop offset="0" stop-color="hsl(var(--accent-h) 90% 58%)"/><stop offset="1" stop-color="hsl(calc(var(--accent-h) + 35) 85% 56%)"/></linearGradient>
+              </defs>
+              <rect width="200" height="200" rx="18" fill="url(#gA)"/>
+              <g transform="translate(30,34)" fill="#fff" opacity="0.95">
+                <circle cx="60" cy="44" r="30"/>
+                <rect x="10" y="95" width="100" height="36" rx="10"/>
+                <circle cx="34" cy="118" r="6" fill="#e6f3ff"/>
+                <circle cx="86" cy="118" r="6" fill="#e6f3ff"/>
+              </g>
+            </svg>
           </div>
-          <div>
-            <div class="status">Available for hire</div>
-            <div class="muted small">Open to freelance & full-time roles</div>
+
+          <div style="width:100%;">
+            <div style="font-weight:800">Available for hire</div>
+            <div class="muted" style="font-size:13px;margin-top:6px">Open to freelance & full-time roles</div>
           </div>
         </aside>
       </div>
     </section>
 
-    <!-- About -->
     <section id="about" class="card reveal">
       <h3>About</h3>
-      <p class="muted">I focus on tiny details that make interfaces feel alive — motion that guides, not distracts.</p>
+      <p class="muted">I focus on tiny details that make interfaces feel alive — motion that guides, not distracts; performance that scales; and accessibility that includes everyone.</p>
+      <div style="margin-top:12px" class="grid-2">
+        <div>
+          <strong>Philosophy</strong>
+          <p class="muted">Design with intent. Animate with purpose. Build with maintainability in mind.</p>
+        </div>
+        <div>
+          <strong>Tooling</strong>
+          <p class="muted">React, TypeScript, Web Animations API, SVG, Canvas, Vite, Tailwind (when needed).</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Skills -->
     <section id="skills" class="card reveal">
       <h3>Skills</h3>
       <div class="chips">
-        <div class="chip">Photoshop</div>
-        <div class="chip">Illustrator</div>
-        <div class="chip">After Effects</div>
-        <div class="chip">Figma</div>
+        <div class="chip">തിന്നുക </div>
+        <div class="chip">കുടിക്കുക </div>
+        <div class="chip">ഉറങ്ങുക </div>
+        <div class="chip">കളിക്കുക </div>
+        
       </div>
     </section>
 
-    <!-- Projects -->
     <section id="projects" class="card reveal">
-      <h3>Projects</h3>
-      <div class="projects">
-        <div class="proj"><strong>Micro Interactions Kit</strong><p class="muted">Motion primitives built with Web Animations API.</p></div>
-        <div class="proj"><strong>Animated Docs</strong><p class="muted">Docs with live animation playground.</p></div>
-        <div class="proj"><strong>Typing Car</strong><p class="muted">Typing game with motion feedback.</p></div>
+      <h3>Selected Projects</h3>
+      <div class="projects" id="projectGrid" style="margin-top:12px">
+        <div class="proj" tabindex="0">
+          <strong class="title">Micro Interactions Kit</strong>
+          <p class="muted">A small library of reusable motion primitives built with Web Animations API.</p>
+        </div>
+        <div class="proj" tabindex="0">
+          <strong class="title">Animated Documentation</strong>
+          <p class="muted">Developer docs with live animation playground and accessible controls.</p>
+        </div>
+        <div class="proj" tabindex="0">
+          <strong class="title">Typing Car</strong>
+          <p class="muted">An interactive canvas game that teaches typing with motion-driven feedback.</p>
+        </div>
       </div>
     </section>
 
-    <!-- Contact -->
     <section id="contact" class="card reveal">
       <h3>Contact</h3>
-      <p class="muted">Email: <a href="mailto:midlajmk012@gmail.com" id="emailLink">midlajmk012@gmail.com</a></p>
-      <div class="actions">
+      <p class="muted">Email: <a href="mailto:you@example.com" id="emailLink">you@example.com</a></p>
+      <div style="margin-top:10px;display:flex;gap:8px">
         <button class="btn" id="copyEmail">Copy Email</button>
         <button class="btn primary" id="downloadCv">Download CV</button>
       </div>
     </section>
 
-    <footer>Made with ♥ — move the mouse to explore effects.</footer>
+    <footer style="grid-column:1 / -1">Made with ♥ — move the mouse to explore the color & particle effects.</footer>
   </main>
 
-  <!-- Sidebar -->
   <aside class="right reveal">
     <div class="card">
       <div class="meta">
-        <div class="name">MHD MIDLAJ</div>
-        <div class="role muted">Poster Designer • Creative Coder</div>
+        <div class="name">Your Name</div>
+        <div class="role muted">Frontend Engineer • Motion Designer</div>
       </div>
-      <div class="sidebar-section"><strong>Contact</strong><div class="muted">midlajmk012@gmail.com</div></div>
-      <div class="sidebar-section"><strong>Tech stack</strong><div class="muted">React • TS • Web Animations • SVG • Canvas</div></div>
-      <div class="actions">
+
+      <div style="margin-top:12px">
+        <strong>Contact</strong>
+        <div class="muted" style="margin-top:6px">you@example.com</div>
+      </div>
+
+      <div style="margin-top:12px">
+        <strong>Tech stack</strong>
+        <div class="muted" style="margin-top:6px">React • TS • Web Animations • SVG • Canvas</div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:12px">
         <button class="btn" id="themeToggle">Toggle Theme</button>
         <button class="btn" id="focusProjects">Focus Projects</button>
       </div>
@@ -118,6 +251,202 @@
   </aside>
 </div>
 
-<script src="script.js"></script>
+<script>
+/* -------------------------
+   Utilities & Reduced-Motion
+   ------------------------- */
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Reveal on scroll */
+if(!prefersReduced){
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, {threshold: 0.08});
+  reveals.forEach(r=>io.observe(r));
+} else {
+  document.querySelectorAll('.reveal').forEach(n=>n.classList.add('visible'));
+}
+
+/* -------------------------
+   Typewriter heading
+   ------------------------- */
+(function initTypewriter(){
+  const phrases = ['UI Animator', 'Frontend Engineer', 'Creative Coder', 'Speaker'];
+  const el = document.querySelector('.typewriter-js');
+  let wIdx = 0, pos = 0, forward = true;
+  function step(){
+    const text = phrases[wIdx];
+    if(forward){ pos++; if(pos >= text.length){ forward=false; setTimeout(step, 900); return; } }
+    else { pos--; if(pos <= 0){ forward = true; wIdx = (wIdx+1) % phrases.length; } }
+    el.textContent = text.slice(0,pos);
+    setTimeout(step, forward ? 120 : 40);
+  }
+  if(!prefersReduced) step(); else el.textContent = phrases[0];
+})();
+
+/* -------------------------
+   Project tilt interactions
+   ------------------------- */
+document.querySelectorAll('.proj').forEach(card=>{
+  if(prefersReduced) return;
+  card.addEventListener('pointermove', e=>{
+    const r = card.getBoundingClientRect();
+    const cx = r.left + r.width/2; const cy = r.top + r.height/2;
+    const dx = (e.clientX - cx)/r.width; const dy = (e.clientY - cy)/r.height;
+    const rx = (dy) * 8, ry = (dx) * -10;
+    card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+  });
+  card.addEventListener('pointerleave', ()=>{ card.style.transform = ''; });
+});
+
+/* -------------------------
+   Accent Hue driven by mouse
+   ------------------------- */
+(function mouseHue(){
+  // update CSS variable --accent-h based on mouse x & y
+  function handle(e){
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+    // compute hue 0..360 biased by x and y
+    let hue = Math.floor( (x*360 + y*60) % 360 );
+    document.documentElement.style.setProperty('--accent-h', hue);
+    // optional: change pointer ring gradient too
+    pointerRing.style.background = `radial-gradient(circle at 30% 30%, hsla(${hue},100%,95%,0.95), hsla(${hue+20},90%,50%,0.15) 30%, transparent 60%)`;
+  }
+  const pointerRing = document.getElementById('pointerRing');
+  // attach to mouse & touch
+  window.addEventListener('pointermove', handle, {passive:true});
+  window.addEventListener('touchmove', (e)=>{ if(e.touches && e.touches[0]) handle(e.touches[0]); }, {passive:true});
+})();
+
+/* -------------------------
+   Cursor particle system (Canvas)
+   ------------------------- */
+(function particleCursor(){
+  if(prefersReduced) return; // skip heavy animation if user prefers reduced motion
+
+  const canvas = document.getElementById('cursorCanvas');
+  const ctx = canvas.getContext('2d');
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+
+  function resize(){
+    dpr = Math.max(1, window.devicePixelRatio || 1);
+    canvas.width = Math.floor(innerWidth * dpr);
+    canvas.height = Math.floor(innerHeight * dpr);
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resize(); window.addEventListener('resize', resize);
+
+  const particles = [];
+  const maxParticles = 70;
+  let pointer = {x: innerWidth/2, y: innerHeight/2};
+
+  window.addEventListener('pointermove', (e)=>{
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+    // spawn a few particles per move
+    for(let i=0;i<2;i++){
+      if(particles.length < maxParticles) particles.push(createParticle(pointer.x, pointer.y));
+    }
+  }, {passive:true});
+
+  function createParticle(x,y){
+    const hue = getComputedStyle(document.documentElement).getPropertyValue('--accent-h') || '200';
+    const speed = 0.3 + Math.random()*1.2;
+    return {
+      x, y,
+      vx: (Math.random()-0.5)*2 * speed,
+      vy: (Math.random()-0.9)*1.2 * speed,
+      life: 60 + Math.random()*40,
+      size: 1 + Math.random()*3,
+      hue: parseInt(hue) + Math.round((Math.random()-0.5)*40)
+    };
+  }
+
+  function step(){
+    ctx.clearRect(0,0,innerWidth, innerHeight);
+    // trail towards pointer: spawn subtle glow under pointer
+    ctx.beginPath();
+    ctx.fillStyle = `radial-gradient`; // placeholder - actual radial is drawn per particle
+    // update and draw particles
+    for(let i = particles.length-1; i >= 0; i--){
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.98; p.vy *= 0.98;
+      p.life -= 1.6;
+      const alpha = Math.max(0, p.life/80);
+      // draw particle as soft circle
+      const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size*6);
+      grd.addColorStop(0, `hsla(${p.hue},90%,65%,${alpha})`);
+      grd.addColorStop(0.25, `hsla(${p.hue},90%,60%,${alpha*0.6})`);
+      grd.addColorStop(1, `hsla(${p.hue},90%,60%,0)`);
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size*6, 0, Math.PI*2);
+      ctx.fill();
+
+      if(p.life <= 0) particles.splice(i,1);
+    }
+
+    requestAnimationFrame(step);
+  }
+  step();
+})();
+
+/* -------------------------
+   Small UI interactions
+   ------------------------- */
+document.getElementById('copyEmail').addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText('you@example.com');
+    const el = document.getElementById('copyEmail');
+    el.textContent = 'Copied!';
+    setTimeout(()=>el.textContent = 'Copy Email', 1200);
+  }catch(e){
+    alert('Copy failed');
+  }
+});
+
+document.getElementById('downloadCv').addEventListener('click', ()=>{
+  const blob = new Blob([`MHD MIDLAJ-editor\n\nContact:midlajmk012@gmail.com\n\nSummary: Motion-focused UI engineer`], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'YourName-CV.txt'; a.click(); URL.revokeObjectURL(url);
+});
+
+document.getElementById('focusProjects').addEventListener('click', ()=> document.getElementById('projectGrid').scrollIntoView({behavior:'smooth'}));
+
+document.getElementById('themeToggle').addEventListener('click', ()=>{
+  document.documentElement.classList.toggle('dark');
+});
+
+/* Light keyboard accessibility: Enter on project shows title */
+document.querySelectorAll('.proj').forEach(p=>{
+  p.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') alert(p.querySelector('.title')?.textContent || 'Project');
+  });
+});
+
+/* make navigation smooth */
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click', e=>{
+    e.preventDefault();
+    const id = a.getAttribute('href');
+    const el = document.querySelector(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+/* small misc: hire button */
+document.getElementById('hireBtn').addEventListener('click', ()=> window.location.href = 'mailto:you@example.com?subject=Opportunity');
+
+</script>
 </body>
 </html>
+
+
